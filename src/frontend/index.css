@@ -1,0 +1,161 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* JetBrains Mono - monospaced for prices & numbers */
+@font-face {
+  font-family: "JetBrains Mono";
+  src: url("/assets/fonts/JetBrainsMono[wght].woff2") format("woff2");
+  font-weight: 100 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Sora - clean geometric for UI labels */
+@font-face {
+  font-family: "Sora";
+  src: url("/assets/fonts/Sora[wght].woff2") format("woff2");
+  font-weight: 100 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+@layer base {
+  :root {
+    --radius: 0.5rem;
+
+    /* Dark trading terminal palette */
+    --background: 0.1 0.018 260;
+    --foreground: 0.92 0.01 220;
+    --card: 0.12 0.022 258;
+    --card-foreground: 0.92 0.01 220;
+    --popover: 0.14 0.025 257;
+    --popover-foreground: 0.92 0.01 220;
+    --primary: 0.72 0.18 195;
+    --primary-foreground: 0.08 0.015 258;
+    --secondary: 0.17 0.025 258;
+    --secondary-foreground: 0.88 0.015 220;
+    --muted: 0.15 0.02 258;
+    --muted-foreground: 0.55 0.025 240;
+    --accent: 0.72 0.18 195;
+    --accent-foreground: 0.08 0.015 258;
+    --destructive: 0.58 0.22 25;
+    --destructive-foreground: 0.98 0.01 220;
+    --border: 0.22 0.03 255;
+    --input: 0.18 0.025 258;
+    --ring: 0.65 0.16 195;
+
+    /* Chart colors */
+    --chart-1: 0.72 0.18 195;
+    --chart-2: 0.68 0.22 142;
+    --chart-3: 0.62 0.22 25;
+    --chart-4: 0.75 0.19 60;
+    --chart-5: 0.58 0.2 280;
+
+    /* Sidebar */
+    --sidebar: 0.09 0.02 258;
+    --sidebar-foreground: 0.85 0.015 220;
+    --sidebar-primary: 0.72 0.18 195;
+    --sidebar-primary-foreground: 0.08 0.015 258;
+    --sidebar-accent: 0.15 0.025 258;
+    --sidebar-accent-foreground: 0.88 0.015 220;
+    --sidebar-border: 0.2 0.03 255;
+    --sidebar-ring: 0.65 0.16 195;
+
+    /* Trading-specific tokens */
+    --buy-color: 0.72 0.22 142;
+    --sell-color: 0.6 0.22 25;
+    --neutral-color: 0.72 0.18 195;
+    --buy-glow: oklch(0.72 0.22 142 / 0.4);
+    --sell-glow: oklch(0.6 0.22 25 / 0.4);
+    --cyan-glow: oklch(0.72 0.18 195 / 0.35);
+  }
+
+  html {
+    color-scheme: dark;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans;
+    background-image:
+      radial-gradient(ellipse at 20% 50%, oklch(0.15 0.04 240 / 0.3) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 20%, oklch(0.12 0.035 260 / 0.25) 0%, transparent 50%);
+    min-height: 100vh;
+  }
+
+  /* Monospace numbers */
+  .font-mono-nums {
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+@layer utilities {
+  .buy-glow {
+    box-shadow: 0 0 20px var(--buy-glow), 0 0 40px oklch(0.72 0.22 142 / 0.15);
+  }
+
+  .sell-glow {
+    box-shadow: 0 0 20px var(--sell-glow), 0 0 40px oklch(0.6 0.22 25 / 0.15);
+  }
+
+  .cyan-glow {
+    box-shadow: 0 0 16px var(--cyan-glow);
+  }
+
+  .chart-grid {
+    background-image:
+      linear-gradient(oklch(0.22 0.03 255 / 0.4) 1px, transparent 1px),
+      linear-gradient(90deg, oklch(0.22 0.03 255 / 0.4) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+
+  .signal-pulse {
+    animation: signal-pulse 2s ease-in-out infinite;
+  }
+
+  .price-flash-up {
+    animation: flash-up 0.3s ease-out;
+  }
+
+  .price-flash-down {
+    animation: flash-down 0.3s ease-out;
+  }
+
+  @keyframes signal-pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.6; }
+  }
+
+  @keyframes flash-up {
+    0% { color: oklch(0.72 0.22 142); }
+    100% { color: inherit; }
+  }
+
+  @keyframes flash-down {
+    0% { color: oklch(0.6 0.22 25); }
+    100% { color: inherit; }
+  }
+
+  .scrollbar-thin {
+    scrollbar-width: thin;
+    scrollbar-color: oklch(0.25 0.03 255) transparent;
+  }
+  
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    background: oklch(0.25 0.03 255);
+    border-radius: 9999px;
+  }
+}
